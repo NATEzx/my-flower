@@ -2,72 +2,93 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <title>ดอกไม้สำหรับคุณ 🌹</title>
+    <title>ช่อดอกไม้พิเศษสำหรับคุณ 🌹🌹🌹</title>
     <style>
         body {
-            background-color: #1a1a1a;
+            background-color: #0a0a0a;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
             margin: 0;
             overflow: hidden;
+            font-family: 'Tahoma', sans-serif;
+        }
+
+        .garden {
+            display: flex;
+            align-items: flex-end;
+            gap: 40px; /* ระยะห่างระหว่างดอก */
+            margin-bottom: 50px;
         }
 
         .flower {
             position: relative;
+            transform: scale(0.8); /* ย่อขนาดเริ่มต้น */
         }
 
-        /* ส่วนก้านดอกไม้ */
+        /* ปรับขนาดดอกที่ 2 (ดอกกลาง) ให้เด่นขึ้น */
+        .flower:nth-child(2) {
+            transform: scale(1.1);
+            z-index: 2;
+        }
+
         .stem {
-            width: 8px;
-            height: 300px;
-            background: linear-gradient(to bottom, #2d5a27, #1e3c1a);
+            width: 6px;
+            height: 200px;
+            background: linear-gradient(to bottom, #2d5a27, #152c14);
             border-radius: 4px;
-            position: absolute;
-            bottom: -300px;
-            left: 50%;
-            transform: translateX(-50%);
+            margin: 0 auto;
         }
 
-        /* ส่วนกลีบดอกไม้ (สร้างเป็น Layer) */
+        .petal-container {
+            position: relative;
+            height: 0;
+            width: 0;
+            margin: 0 auto;
+        }
+
         .petal {
-            width: 50px;
-            height: 80px;
-            background: ##ffb7c5;
+            width: 40px;
+            height: 70px;
+            background: #ff4d6d; /* สีชมพูแดง */
             border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
             position: absolute;
             bottom: 0;
-            left: 50%;
+            left: -20px;
             transform-origin: bottom center;
             opacity: 0;
-            animation: bloom 3s ease-in-out forwards;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+            animation: bloom 2.5s ease-out forwards;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
         }
 
-        /* อนิเมชั่นการบาน */
+        /* ดอกที่ 1: สีแดงเข้ม */
+        .flower:nth-child(1) .petal { background: #c1121f; animation-delay: 0.2s; }
+        /* ดอกที่ 2: สีแดงสด */
+        .flower:nth-child(2) .petal { background: #e63946; animation-delay: 1s; }
+        /* ดอกที่ 3: สีชมพูหวาน */
+        .flower:nth-child(3) .petal { background: #ff758f; animation-delay: 1.8s; }
+
         @keyframes bloom {
-            0% { transform: translateX(-50%) scale(0) rotate(0deg); opacity: 0; }
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
             100% { opacity: 1; }
         }
 
-        /* ตกแต่งกลีบดอกแต่ละชั้น */
-        .petal:nth-child(1) { animation-delay: 0.5s; transform: translateX(-50%) rotate(-30deg); }
-        .petal:nth-child(2) { animation-delay: 0.8s; transform: translateX(-50%) rotate(30deg); }
-        .petal:nth-child(3) { animation-delay: 1.1s; transform: translateX(-50%) rotate(-15deg); }
-        .petal:nth-child(4) { animation-delay: 1.4s; transform: translateX(-50%) rotate(15deg); }
-        .petal:nth-child(5) { animation-delay: 1.7s; transform: translateX(-50%) rotate(0deg); height: 90px; }
+        /* เลเยอร์กลีบดอกไม้ */
+        .petal:nth-child(1) { transform: rotate(-35deg); }
+        .petal:nth-child(2) { transform: rotate(35deg); }
+        .petal:nth-child(3) { transform: rotate(-15deg); }
+        .petal:nth-child(4) { transform: rotate(15deg); }
+        .petal:nth-child(5) { transform: rotate(0deg); height: 80px; }
 
         .message {
-            position: absolute;
-            bottom: -380px;
-            width: 100%;
             text-align: center;
-            color: white;
-            font-family: 'Arial', sans-serif;
-            font-size: 1.5rem;
+            color: #ffb3c1;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
             opacity: 0;
-            animation: fadeIn 2s ease-in 4s forwards;
+            animation: fadeIn 2s ease-in 3.5s forwards;
         }
 
         @keyframes fadeIn {
@@ -76,14 +97,37 @@
     </style>
 </head>
 <body>
-    <div class="flower">
-        <div class="petal"></div>
-        <div class="petal"></div>
-        <div class="petal"></div>
-        <div class="petal"></div>
-        <div class="petal"></div>
-        <div class="stem"></div>
-        <div class="message">Happy Valentine's Day! 💖</div>
+
+    <div class="garden">
+        <div class="flower">
+            <div class="petal-container">
+                <div class="petal"></div><div class="petal"></div>
+                <div class="petal"></div><div class="petal"></div>
+                <div class="petal"></div>
+            </div>
+            <div class="stem"></div>
+        </div>
+
+        <div class="flower">
+            <div class="petal-container">
+                <div class="petal"></div><div class="petal)</div>
+                <div class="petal"></div><div class="petal"></div>
+                <div class="petal"></div>
+            </div>
+            <div class="stem"></div>
+        </div>
+
+        <div class="flower">
+            <div class="petal-container">
+                <div class="petal"></div><div class="petal"></div>
+                <div class="petal"></div><div class="petal"></div>
+                <div class="petal"></div>
+            </div>
+            <div class="stem"></div>
+        </div>
     </div>
+
+    <div class="message">For You, My Special Person 💖</div>
+
 </body>
 </html>

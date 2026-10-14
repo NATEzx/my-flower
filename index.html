@@ -40,4 +40,303 @@
     .deco-cloud2 { top: 18%; right: 7%; font-size: 42px; opacity: 0.65; animation-delay: -1.5s; }
     .deco-sparkle { top: 12%; right: 15%; font-size: 26px; animation: pulse 2s infinite; }
     .deco-bell { bottom: 8%; left: 10%; font-size: 34px; animation-delay: -2s; }
-    .deco-balloon { bottom: 12%; right: 12%; font-size: 34px; animation
+    .deco-balloon { bottom: 12%; right: 12%; font-size: 34px; animation-delay: -1s; }
+
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-12px) rotate(4deg); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.25); opacity: 1; }
+    }
+
+    /* การ์ดสารภาพรัก */
+    .card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 375px;
+      border-radius: 36px;
+      padding: 24px 20px 28px;
+      box-shadow: 0 20px 45px rgba(50, 115, 220, 0.12), 0 6px 18px rgba(0, 0, 0, 0.04);
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* แบดจ์ด้านบน */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #e9f4ff;
+      color: #3b82f6;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      border: 1px solid #cce5ff;
+    }
+
+    /* กรอบรูปภาพ */
+    .img-box {
+      width: 100%;
+      background: #f0f7ff;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 2px solid #e2effe;
+      position: relative;
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ข้อความ */
+    .title {
+      font-size: 21px;
+      font-weight: 700;
+      color: #24416b;
+      margin-top: 20px;
+      line-height: 1.35;
+    }
+
+    .subtitle {
+      font-size: 13.5px;
+      color: #7b8fa3;
+      margin-top: 8px;
+      line-height: 1.5;
+      font-family: 'Mitr', sans-serif;
+      font-weight: 300;
+      padding: 0 8px;
+    }
+
+    /* กล่องปุ่ม */
+    .btn-container {
+      display: flex;
+      gap: 12px;
+      margin-top: 22px;
+      width: 100%;
+      position: relative;
+      min-height: 52px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* ปุ่มตกลง */
+    .btn-yes {
+      flex: 1.1;
+      height: 50px;
+      background: linear-gradient(135deg, #1d8cf8 0%, #0070e0 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 25px;
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(0, 112, 224, 0.35);
+      transition: all 0.2s ease;
+      font-family: 'Prompt', sans-serif;
+    }
+
+    .btn-yes:active {
+      transform: scale(0.96);
+      box-shadow: 0 4px 10px rgba(0, 112, 224, 0.25);
+    }
+
+    /* ปุ่มปฏิเสธ (วิ่งหนี) */
+    .btn-no {
+      flex: 0.9;
+      height: 50px;
+      background: #fbf2c0;
+      color: #8b7a2b;
+      border: 1px solid #f2e297;
+      border-radius: 25px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      user-select: none;
+      font-family: 'Prompt', sans-serif;
+    }
+
+    /* ป๊อปอัปเมื่อตอบรับ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 100;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 320px;
+      border-radius: 32px;
+      padding: 30px 20px 24px;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+      transform: scale(0.85);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-emoji {
+      font-size: 50px;
+      margin-bottom: 12px;
+    }
+
+    .modal-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1e3a8a;
+      margin-bottom: 8px;
+    }
+
+    .modal-desc {
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .btn-close {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 26px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ของตกแต่งลอยหลัง -->
+  <div class="bg-deco deco-cloud1">☁️</div>
+  <div class="bg-deco deco-cloud2">☁️</div>
+  <div class="bg-deco deco-sparkle">✨</div>
+  <div class="bg-deco deco-bell">🔔</div>
+  <div class="bg-deco deco-balloon">🎈</div>
+
+  <div class="card">
+    <!-- แบดจ์ข้อความ -->
+    <div class="badge">
+      <span>✨</span>
+      <span>DORAEMON'S LOVE MISSION</span>
+    </div>
+
+    <!-- กรอบรูปโดเรม่อน -->
+    <div class="img-box">
+      <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80" id="main-img" alt="Doraemon Love" onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/en/b/bd/Doraemon_character.png';">
+    </div>
+
+    <!-- ข้อความถาม -->
+    <h1 class="title">เราอยากเป็นคน<br>พิเศษของเธอได้ไหม?</h1>
+    <p class="subtitle">ถ้าเป็นไปได้... ขอให้กระเป๋าวิเศษพาเราไปอยู่ในใจเธอหน่อยนะ 💙</p>
+
+    <!-- ปุ่มกดสองปุ่ม -->
+    <div class="btn-container" id="btnGroup">
+      <button class="btn-yes" id="yesBtn" onclick="onAccept()">
+        <span>💛</span> ลองคุยกันนะ
+      </button>
+      <button class="btn-no" id="noBtn" onmouseover="dodgeBtn()" onclick="dodgeBtn()">
+        ขอเป็นเพื่อนก่อนนะ
+      </button>
+    </div>
+  </div>
+
+  <!-- ป๊อปอัปความสำเร็จ -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-card">
+      <div class="modal-emoji">💖🎉</div>
+      <h2 class="modal-title">เย้! ตกลงแล้วนะ</h2>
+      <p class="modal-desc">ตั้งแต่วันนี้เป็นต้นไป<br>เตรียมตัวรับความสุขจากเราได้เลยยย 🥰</p>
+      <button class="btn-close" onclick="closeModal()">รักนะคับ 💙</button>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    let dodgeCount = 0;
+    const noTexts = [
+      'ขอเป็นเพื่อนก่อนนะ',
+      'คิดดูอีกทีน้า 🥺',
+      'แน่ใจเหรอคับ...',
+      'อย่าใจร้ายจิ 😿',
+      'กดปุ่มฟ้าเถอะ 💙'
+    ];
+
+    function dodgeBtn() {
+      dodgeCount++;
+      const card = document.querySelector('.card');
+      const cardRect = card.getBoundingClientRect();
+
+      // สุ่มย้ายตำแหน่งปุ่มหนี
+      const maxOffset = 60;
+      const randomX = (Math.random() - 0.5) * maxOffset * 2;
+      const randomY = (Math.random() - 0.5) * 40;
+
+      noBtn.style.transform = `translate(${randomX}px, ${randomY}px) scale(${Math.max(0.75, 1 - dodgeCount * 0.05)})`;
+      noBtn.innerText = noTexts[dodgeCount % noTexts.length];
+    }
+
+    function onAccept() {
+      // จุดพลุกระดาษ Confetti
+      confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.65 },
+        colors: ['#0080ff', '#ffdf00', '#ff4d6d', '#ffffff']
+      });
+
+      setTimeout(() => {
+        document.getElementById('modal').classList.add('active');
+      }, 300);
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+    }
+  </script>
+</body>
+</html>

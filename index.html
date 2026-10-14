@@ -1,140 +1,155 @@
+```html
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <title>ช่อดอกไม้พิเศษสำหรับเธอ 💐</title>
-    <style>
-        body {
-            background: radial-gradient(circle, #2a0a2a, #0a0a0a);
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            font-family: 'Arial', sans-serif;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doraemon's Love Mission 💙</title>
+  <!-- Google Fonts: Itim & Mali สำหรับฟอนต์ภาษาไทยสไตล์น่ารัก เป็นกันเอง -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            cute: ['"Mali"', '"Itim"', 'cursive', 'sans-serif'],
+          },
+          colors: {
+            'dora-blue': '#228be6',
+            'dora-dark-blue': '#1c6ca1',
+            'dora-light': '#e8f4fc',
+            'dora-yellow': '#ffe066',
+            'dora-yellow-hover': '#ffd43b',
+          },
+          boxShadow: {
+            'soft': '0 20px 40px -15px rgba(34, 139, 230, 0.18), 0 0 25px rgba(0, 0, 0, 0.04)',
+            'bubble': '0 8px 20px -4px rgba(34, 139, 230, 0.35)',
+          }
         }
+      }
+    }
+  </script>
 
-        .bouquet {
-            position: relative;
-            width: 300px;
-            height: 400px;
-            display: flex;
-            justify-content: center;
-        }
+  <style>
+    body {
+      font-family: 'Mali', 'Itim', cursive, sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 45%, #fff5f8 100%);
+    }
 
-        /* ก้านดอกไม้ที่รวมกันเป็นช่อ */
-        .stem {
-            position: absolute;
-            width: 4px;
-            height: 250px;
-            background: linear-gradient(to bottom, #3e6b39, #1e3c1a);
-            bottom: 50px;
-            border-radius: 2px;
-            transform-origin: bottom center;
-        }
+    /* ตกแต่งพื้นหลังลอยๆ Floating Background Shapes */
+    .floating-shape {
+      position: absolute;
+      pointer-events: none;
+      animation: floatSlow 7s ease-in-out infinite alternate;
+      z-index: 0;
+      opacity: 0.6;
+    }
 
-        /* จัดมุมก้านให้เป็นช่อ */
-        .stem:nth-child(1) { transform: rotate(-15deg); }
-        .stem:nth-child(2) { transform: rotate(-5deg); }
-        .stem:nth-child(3) { transform: rotate(5deg); }
-        .stem:nth-child(4) { transform: rotate(15deg); }
-        .stem:nth-child(5) { transform: rotate(0deg); height: 270px; }
+    @keyframes floatSlow {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-25px) rotate(12deg); }
+    }
 
-        .flower {
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+    /* แอนิเมชันปุ่มสั่นเบาๆ ดึงดูดสายตา */
+    @keyframes pulseHeart {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+    .pulse-btn {
+      animation: pulseHeart 2s infinite ease-in-out;
+    }
 
-        .petal {
-            width: 35px;
-            height: 55px;
-            border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
-            position: absolute;
-            bottom: 0;
-            left: -17.5px;
-            transform-origin: bottom center;
-            opacity: 0;
-            animation: bloom 2s ease-out forwards;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        /* สีดอกไม้แบบ Mix */
-        .flower-pink .petal { background: #ff8fab; }
-        .flower-purple .petal { background: #c8b6ff; }
-        .flower-white .petal { background: #f8f9fa; }
-
-        @keyframes bloom {
-            0% { transform: scale(0) rotate(0deg); opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        /* การเรียงกลีบดอก */
-        .petal:nth-child(1) { transform: rotate(-40deg); }
-        .petal:nth-child(2) { transform: rotate(40deg); }
-        .petal:nth-child(3) { transform: rotate(-20deg); }
-        .petal:nth-child(4) { transform: rotate(20deg); }
-        .petal:nth-child(5) { transform: rotate(0deg); height: 60px; }
-
-        /* ข้อความ */
-        .message {
-            margin-top: 40px;
-            color: #ffc2d1;
-            font-size: 1.5rem;
-            text-align: center;
-            text-shadow: 0 0 15px rgba(255, 143, 171, 0.6);
-            opacity: 0;
-            animation: fadeIn 2s ease-in 3s forwards;
-        }
-
-        /* เอฟเฟกต์หัวใจลอย */
-        .heart {
-            position: absolute;
-            color: #ff4d6d;
-            font-size: 20px;
-            animation: heartUp 4s linear infinite;
-            opacity: 0;
-        }
-
-        @keyframes heartUp {
-            0% { transform: translateY(0) scale(1); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-500px) scale(1.5); opacity: 0; }
-        }
-
-        @keyframes fadeIn { to { opacity: 1; } }
-    </style>
+    /* Modal Pop-in Animation */
+    @keyframes popIn {
+      0% { transform: scale(0.85); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .pop-in {
+      animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+  </style>
 </head>
-<body>
+<body class="relative flex items-center justify-center p-4 selection:bg-blue-200">
 
-    <div class="bouquet">
-        <div class="stem" style="left: 45%;"><div class="flower flower-pink"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div></div></div>
-        <div class="stem" style="left: 48%;"><div class="flower flower-purple"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div></div></div>
-        <div class="stem" style="left: 50%;"><div class="flower flower-white"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div></div></div>
-        <div class="stem" style="left: 52%;"><div class="flower flower-pink"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div></div></div>
-        <div class="stem" style="left: 55%;"><div class="flower flower-purple"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div></div></div>
+  <!-- Background Decorative Icons -->
+  <div class="floating-shape top-10 left-10 text-4xl select-none" style="animation-duration: 6s;">☁️</div>
+  <div class="floating-shape top-24 right-16 text-3xl select-none" style="animation-duration: 8s;">✨</div>
+  <div class="floating-shape bottom-16 left-12 text-3xl select-none" style="animation-duration: 7s;">🔔</div>
+  <div class="floating-shape bottom-20 right-14 text-4xl select-none" style="animation-duration: 9s;">🎈</div>
+  <div class="floating-shape top-1/2 left-4 text-2xl select-none" style="animation-duration: 10s;">💙</div>
+
+  <!-- Main Card Container -->
+  <main class="relative z-10 w-full max-w-md bg-white/95 backdrop-blur-md rounded-[32px] p-6 sm:p-8 shadow-soft border border-white/80 transition-all duration-300">
+    
+    <!-- Top Pill Badge -->
+    <div class="flex justify-center mb-5">
+      <div class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-100 text-blue-500 font-bold text-xs sm:text-sm tracking-wider uppercase shadow-sm">
+        <span>✨</span>
+        <span>DORAEMON'S LOVE MISSION</span>
+      </div>
     </div>
 
-    <div class="message">
-        Happy Valentine's Day! 💖<br>
-        <span style="font-size: 1rem;">ดอกไม้ช่อนี้ให้คุณคนเดียวนะ</span>
-    </div>
+    <!-- Image Display Box -->
+    <div class="relative mx-auto w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-inner bg-gradient-to-b from-sky-100 via-blue-150 to-blue-200 border-4 border-white/90 shadow-md flex items-center justify-center">
+      <!-- รูปภาพโดเรม่อนนั่งเขิน (รองรับไฟล์รูป doraemon.jpg และมีภาพประกอบเวกเตอร์โดเรม่อนสุดน่ารักแสดงทันที) -->
+      <div class="relative w-full h-full flex items-center justify-center bg-[#dcf0fa]">
+        <svg class="w-full h-full max-h-[230px]" viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Room Background Depth -->
+          <rect width="320" height="240" fill="#E8F4FC"/>
+          <!-- Wall lines -->
+          <line x1="0" y1="180" x2="320" y2="180" stroke="#CCE2F2" stroke-width="2"/>
+          <line x1="40" y1="0" x2="40" y2="180" stroke="#CCE2F2" stroke-dasharray="4 4" stroke-width="1.5"/>
+          <line x1="280" y1="0" x2="280" y2="180" stroke="#CCE2F2" stroke-dasharray="4 4" stroke-width="1.5"/>
+          <rect y="180" width="320" height="60" fill="#D3E8F8"/>
 
-    <script>
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, 5000);
-        }
-        setInterval(createHeart, 400);
-    </script>
+          <!-- Soft Shadow under Doraemon -->
+          <ellipse cx="160" cy="195" rx="58" ry="12" fill="#B3D4EE" opacity="0.8"/>
 
-</body>
-</html>
+          <!-- Feet -->
+          <ellipse cx="132" cy="190" rx="20" ry="11" fill="white" stroke="#222" stroke-width="2.5"/>
+          <ellipse cx="188" cy="190" rx="20" ry="11" fill="white" stroke="#222" stroke-width="2.5"/>
+
+          <!-- Body -->
+          <path d="M125 125 C120 160 125 185 160 185 C195 185 200 160 195 125 Z" fill="#0096E6" stroke="#222" stroke-width="2.5"/>
+          
+          <!-- Belly (White tummy) -->
+          <ellipse cx="160" cy="155" rx="28" ry="24" fill="white" stroke="#222" stroke-width="2"/>
+          
+          <!-- Pocket (กระเป๋ามิติที่ 4) -->
+          <path d="M142 153 C142 168 178 168 178 153 Z" fill="white" stroke="#222" stroke-width="2"/>
+
+          <!-- Arms / Hands (White round paws shyly in front) -->
+          <ellipse cx="120" cy="150" rx="13" ry="13" fill="#0096E6" stroke="#222" stroke-width="2.5"/>
+          <circle cx="116" cy="153" r="10" fill="white" stroke="#222" stroke-width="2"/>
+
+          <ellipse cx="200" cy="150" rx="13" ry="13" fill="#0096E6" stroke="#222" stroke-width="2.5"/>
+          <circle cx="204" cy="153" r="10" fill="white" stroke="#222" stroke-width="2"/>
+
+          <!-- Head -->
+          <circle cx="160" cy="85" r="54" fill="#0096E6" stroke="#222" stroke-width="2.8"/>
+          <!-- Face (White inner area) -->
+          <ellipse cx="160" cy="94" rx="44" ry="38" fill="white" stroke="#222" stroke-width="2.5"/>
+
+          <!-- Red Collar -->
+          <rect x="133" y="128" width="54" height="8" rx="4" fill="#E62E2D" stroke="#222" stroke-width="2"/>
+          <!-- Bell -->
+          <circle cx="160" cy="138" r="7.5" fill="#FFD000" stroke="#222" stroke-width="1.8"/>
+          <line x1="154" y1="137" x2="166" y2="137" stroke="#665200" stroke-width="1.2"/>
+          <circle cx="160" cy="140" r="1.5" fill="#444"/>
+
+          <!-- Eyes (Cute Happy/Shy Closed Eyes ^ ^) -->
+          <path d="M140 76 Q148 68 156 76" stroke="#222" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M164 76 Q172 68 180 76" stroke="#222" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+          <!-- Red Nose -->
+          <circle cx="160" cy="81" r="7.5" fill="#E62E2D" stroke="#222" stroke-width="2
+```
